@@ -38,19 +38,23 @@ public class UserImp implements UserService {
 
     private UserDto getEmailAndPassword(Optional<User> user){
         UserDto userDto = new UserDto();
-        if(user.isPresent()){
-            userDto.setIdDto(user.get().getId());
-            userDto.setFirstNameDto(user.get().getFirstName());
-            userDto.setLastNameDto(user.get().getLastName());
-            userDto.setSecondLastNameDto(user.get().getSecondLastName());
-            userDto.setEmailDto(user.get().getEmail());
-            userDto.setPhoneNumberDto(user.get().getPhoneNumber());
-            userDto.setPasswordDto(user.get().getPassword());
-            userDto.setCreationDateDto(user.get().getCreationDate());
-            userDto.setUpdateDatesDto(user.get().getUpdateDates());
-            userDto.setActiveDto(user.get().getActive());
-        }else{
-            userDto = null;
+        try{
+            if(user.isPresent()){
+                userDto.setIdDto(user.get().getId());
+                userDto.setFirstNameDto(user.get().getFirstName());
+                userDto.setLastNameDto(user.get().getLastName());
+                userDto.setSecondLastNameDto(user.get().getSecondLastName());
+                userDto.setEmailDto(user.get().getEmail());
+                userDto.setPhoneNumberDto(user.get().getPhoneNumber());
+                userDto.setPasswordDto(user.get().getPassword());
+                userDto.setCreationDateDto(user.get().getCreationDate());
+                userDto.setUpdateDatesDto(user.get().getUpdateDates());
+                userDto.setActiveDto(user.get().getActive());
+            }else{
+                userDto = null;
+            }
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
         }
         return userDto;
     }

@@ -17,4 +17,3 @@ logging:
     ROOT: INFO
 jwt:
   secret: testJWT
-

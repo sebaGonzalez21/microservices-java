@@ -1,0 +1,13 @@
+dist:
+  service:
+    dal:
+      url: ${MS_DAL_TEST_URL:http://localhost:8100/dal}
+      ## urlapi: ${MS_API_PROFILE_URL:http://localhost:8081/api}
+server:
+  port: ${MS_PORT_INTERNAL:8090}
+logging:
+  file: logs/ms-api-test.log
+  pattern:
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    ROOT: INFOs

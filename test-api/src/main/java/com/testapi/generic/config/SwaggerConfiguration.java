@@ -1,4 +1,4 @@
-package com.test.generic.config;
+package com.testapi.generic.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +10,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import static springfox.documentation.builders.PathSelectors.regex;
+
 /**
  * Sebastian Gonzalez
  */
@@ -17,12 +18,13 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 @Configuration
 public class SwaggerConfiguration {
+
     @Bean
     public Docket usersApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(usersApiInfo())
                 .select()
-                .paths(regex("/dal.*"))
+                .paths(regex("/api.*"))
                 .apis(RequestHandlerSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);
@@ -30,7 +32,7 @@ public class SwaggerConfiguration {
 
     private ApiInfo usersApiInfo() {
         return new ApiInfoBuilder()
-                .title("Test - Microservicios DAL-TEST")
+                .title("Test - Microservicios API-TEST")
                 .version("1.0")
                 .license("Apache License Version 2.0")
                 .build();
