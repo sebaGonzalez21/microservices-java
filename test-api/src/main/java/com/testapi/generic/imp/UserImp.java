@@ -32,9 +32,11 @@ public class UserImp implements UserService {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<UserDto> responseEntity = null;
         UserDto userDtoLocal = null;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<UserReqDto> requestEntity = new HttpEntity<>(userReqDto,headers);
         try {
 
-            HttpEntity<UserReqDto> requestEntity = new HttpEntity<>(userReqDto);
+
             logger.info(Constant.URL +dalServiceUrlTest + Constant.URLTESTDAL);
 
             responseEntity = restTemplate.exchange(dalServiceUrlTest + Constant.URLTESTDAL,
@@ -60,6 +62,34 @@ public class UserImp implements UserService {
 
     @Override
     public UserDto addUser(UserDto userDto) throws GenericException {
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<UserDto> responseEntity = null;
+        UserDto userDtoLocal = null;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<UserDto> requestEntity = new HttpEntity<>(userDto,headers);
+        try {
+
+
+            logger.info(Constant.URL +dalServiceUrlTest + Constant.URLTESTDAL);
+
+            responseEntity = restTemplate.exchange(dalServiceUrlTest + Constant.URL_USER_SAVE,
+                    HttpMethod.POST, requestEntity, UserDto.class);
+
+            if (null == responseEntity) {
+                logger.error(Constant.ERROR_CLIENT_USER);
+                throw new GenericException(Constant.ERROR_SAVE_USER,
+                        HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                userDtoLocal = responseEntity.getBody();
+            }
+
+
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
+            throw new GenericException(Constant.ERROR_SAVE_USER,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return userDtoLocal;
     }
 }

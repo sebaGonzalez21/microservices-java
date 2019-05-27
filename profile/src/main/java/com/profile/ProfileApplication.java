@@ -1,11 +1,9 @@
-package com.test;
+package com.profile;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import java.util.TimeZone;
-import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
@@ -17,18 +15,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @ServletComponentScan("cl.test")
-public class TestApplication {
-	private static final Logger logger = LoggerFactory.getLogger(TestApplication.class);
+public class ProfileApplication {
 
-	/*
-	@PostConstruct0
-	public void init(){
-		TimeZone.setDefault(TimeZone.getTimeZone("GMT-3"));   // It will set UTC timezone
-	}*/
+	private static final Logger logger = LoggerFactory.getLogger(ProfileApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestApplication.class, args);
-		logger.info("Aplicacion Escuchando Peticiones MS-DAL-TEST.....");
+		logger.info("Aplicacion Escuchando Peticiones MS-DAL-PROFILE.....");
+		SpringApplication.run(ProfileApplication.class, args);
 	}
 
 	@Bean
@@ -44,4 +37,6 @@ public class TestApplication {
 		bean.setOrder(0);
 		return bean;
 	}
+
+
 }

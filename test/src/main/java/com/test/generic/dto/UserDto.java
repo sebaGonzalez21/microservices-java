@@ -17,6 +17,7 @@ public class UserDto implements Serializable {
     private Date creationDateDto;
     private Date updateDatesDto;
     private Integer activeDto;
+    private Integer profileDto;
 
     public UserDto(){
 
@@ -108,5 +109,13 @@ public class UserDto implements Serializable {
 
     public void setActiveDto(Integer activeDto) {
         this.activeDto = activeDto;
+    }
+
+    public Integer getProfileDto() {
+        return profileDto;
+    }
+
+    public void setProfileDto(Integer profileDto) {
+        this.profileDto = profileDto;
     }
 }

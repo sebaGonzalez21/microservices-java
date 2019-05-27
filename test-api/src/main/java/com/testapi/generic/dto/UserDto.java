@@ -22,6 +22,16 @@ public class UserDto implements Serializable {
     private Date updateDatesDto;
     private Integer activeDto;
 
+    public Integer getProfileDto() {
+        return profileDto;
+    }
+
+    public void setProfileDto(Integer profileDto) {
+        this.profileDto = profileDto;
+    }
+
+    private Integer profileDto;
+
     public UserDto(){
 
     }

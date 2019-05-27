@@ -1,4 +1,6 @@
 package com.testapi.generic.controller;
+import com.testapi.generic.dto.ProfileDto;
+import com.testapi.generic.service.ProfileService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,14 +29,21 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProfileService profileService;
 
     @ApiOperation(value = "Registra un usuario api",
             notes="Agrega usuario api")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> addUser(@RequestBody UserDto userDto){
         ResponseEntity<Object> rs = null;
+        ProfileDto profileDto = null;
         try {
-            rs = new ResponseEntity<Object>( userService.addUser(userDto), HttpStatus.OK);
+            profileDto = profileService.findById(userDto.getProfileDto());
+            if(null != profileDto){
+                rs = new ResponseEntity<Object>( userService.addUser(userDto), HttpStatus.OK);
+            }
+
         }catch (GenericException genericException){
             logger.error(genericException.getMessage(),genericException);
             rs = new ResponseEntity<>( genericException.getMessage(), genericException.getHttpStatus());
@@ -51,6 +60,9 @@ public class UserController {
     public ResponseEntity<Object> addUser(@RequestBody UserReqDto userReqDto){
         ResponseEntity<Object> rs = null;
         try {
+
+            rs = new ResponseEntity<Object>( userService.findByEmailInAndPassword(userReqDto), HttpStatus.OK);
+
             rs = new ResponseEntity<Object>( userService.findByEmailInAndPassword(userReqDto), HttpStatus.OK);
         }catch (GenericException genericException){
             logger.error(genericException.getMessage(),genericException);

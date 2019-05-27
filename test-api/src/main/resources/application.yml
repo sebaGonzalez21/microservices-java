@@ -2,6 +2,7 @@ dist:
   service:
     dal:
       url: ${MS_DAL_TEST_URL:http://localhost:8100/dal}
+      urlProfile: ${MS_DAL_TEST_URL:http://localhost:8200/dal}
       ## urlapi: ${MS_API_PROFILE_URL:http://localhost:8081/api}
 server:
   port: ${MS_PORT_INTERNAL:8090}

@@ -50,6 +50,7 @@ public class UserImp implements UserService {
                 userDto.setCreationDateDto(user.get().getCreationDate());
                 userDto.setUpdateDatesDto(user.get().getUpdateDates());
                 userDto.setActiveDto(user.get().getActive());
+                userDto.setProfileDto(user.get().getProfile());
             }else{
                 userDto = null;
             }
@@ -85,6 +86,7 @@ public class UserImp implements UserService {
                 user.setCreationDate(userDto.getCreationDateDto());
                 user.setUpdateDates(userDto.getUpdateDatesDto());
                 user.setActive(userDto.getActiveDto());
+                user.setProfile(userDto.getProfileDto());
             }else{
                 user = null;
             }
@@ -111,6 +113,7 @@ public class UserImp implements UserService {
                 userDto.setCreationDateDto(user.getCreationDate());
                 userDto.setUpdateDatesDto(user.getUpdateDates());
                 userDto.setActiveDto(user.getActive());
+                userDto.setProfileDto(user.getProfile());
             }else{
                 userDto = null;
             }

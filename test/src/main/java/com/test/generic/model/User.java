@@ -61,6 +61,11 @@ public class User {
     @ColumnDefault("1")
     private Integer active;
 
+    @NotNull
+    @Column(name = "tst_profile")
+    @ColumnDefault("1")
+    private Integer profile;
+
     public User(){
     }
 
@@ -150,5 +155,13 @@ public class User {
 
     public void setActive(Integer active) {
         this.active = active;
+    }
+
+    public Integer getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Integer profile) {
+        this.profile = profile;
     }
 }

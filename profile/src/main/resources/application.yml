@@ -1,0 +1,19 @@
+# Connection to DATABASE
+spring:
+  datasource:
+    url: ${DB_DRIVER_DATASOURCE_URL:jdbc:mysql://localhost:3306/microservicetest?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
+    username: ${DB_DRIVER_DATASOURCE_USER:test}
+    password: ${DB_DRIVER_DATASOURCE_PASS:Test12345678}
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: ${MS_PORT_INTERNAL:8200}
+logging:
+  file: logs/ms-dal-profile.log
+  pattern:
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    ROOT: INFO
+jwt:
+  secret: testJWT
