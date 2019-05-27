@@ -60,9 +60,6 @@ public class UserController {
     public ResponseEntity<Object> addUser(@RequestBody UserReqDto userReqDto){
         ResponseEntity<Object> rs = null;
         try {
-
-            rs = new ResponseEntity<Object>( userService.findByEmailInAndPassword(userReqDto), HttpStatus.OK);
-
             rs = new ResponseEntity<Object>( userService.findByEmailInAndPassword(userReqDto), HttpStatus.OK);
         }catch (GenericException genericException){
             logger.error(genericException.getMessage(),genericException);

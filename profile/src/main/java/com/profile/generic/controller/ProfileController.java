@@ -24,8 +24,8 @@ public class ProfileController {
 
     @ApiOperation(value = "Obtiene un perfil",
             notes="Perfil de usuario")
-    @RequestMapping(method = RequestMethod.GET,value="/{id}")
-    public ResponseEntity<Object> getIdProfile(@PathVariable Long id){
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Object> getIdProfile(@RequestParam Long id){
         ResponseEntity<Object> rs = null;
         try {
             rs = new ResponseEntity<Object>( profileService.findById(id), HttpStatus.OK);

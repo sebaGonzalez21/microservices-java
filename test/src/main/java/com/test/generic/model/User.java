@@ -17,6 +17,9 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "tst_user")
 public class User {
 
+
+
+
     @Id
     @Column(name="tst_seq_code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
