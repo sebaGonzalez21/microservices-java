@@ -17,9 +17,3 @@ logging:
     ROOT: INFO
 jwt:
   secret: testJWT
-
-
-  service:
-    dal:
-      url: ${MS_DAL_TEST_URL:http://localhost:8100/dal}
-      urlProfile: ${MS_DAL_TEST_URL:http://localhost:8200/dal}

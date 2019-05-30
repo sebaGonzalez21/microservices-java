@@ -1,6 +1,7 @@
 package com.testapi.generic.controller;
 import com.testapi.generic.dto.ProfileDto;
 import com.testapi.generic.service.ProfileService;
+import com.testapi.generic.util.Constant;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,11 +43,13 @@ public class UserController {
             profileDto = profileService.findById(userDto.getProfileDto());
             if(null != profileDto){
                 rs = new ResponseEntity<Object>( userService.addUser(userDto), HttpStatus.OK);
+            }else{
+                rs = new ResponseEntity<Object>(Constant.ERROR_GET_PROFILE,HttpStatus.BAD_REQUEST);
             }
 
         }catch (GenericException genericException){
             logger.error(genericException.getMessage(),genericException);
-            rs = new ResponseEntity<>( genericException.getMessage(), genericException.getHttpStatus());
+            rs = new ResponseEntity<>( genericException.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }catch (Exception ex){
             logger.error(ex.getMessage(),ex);
             rs = new ResponseEntity<>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
