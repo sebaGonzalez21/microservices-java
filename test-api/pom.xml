@@ -121,9 +121,10 @@
 				<version>0.9.9</version>
 				<configuration>
 					<to>
-						<image>test/ms-api-test</image>
+						<image>gcr.io/gcp-test-microservice/api-test</image>
 					</to>
 				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>
