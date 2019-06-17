@@ -47,9 +47,35 @@ public class UserController {
     @ApiOperation(value = "lista usuarios creados paginados",
             notes="lista usuarios creados paginados")
     @RequestMapping(method = RequestMethod.POST,value = "/pageable")
-    public ResponseEntity<Object> findAll(@RequestBody PageableUserDto pageableUserDto){
+    public ResponseEntity<Object> findAllO(@RequestBody PageableUserDto pageableUserDto){
         ResponseEntity<Object> rs = null;
         try {
+            rs = new ResponseEntity<Object>( userService.findAllO(pageableUserDto), HttpStatus.OK);
+        }catch (GenericException genericException){
+            logger.error(genericException.getMessage(),genericException);
+            rs = new ResponseEntity<>( genericException.getMessage(), genericException.getHttpStatus());
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
+            rs = new ResponseEntity<>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return rs;
+    }
+
+    @ApiOperation(value = "lista usuarios creados paginados",
+            notes="lista usuarios creados paginados")
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Object> findAll(@RequestParam int actualPage,@RequestParam int quantityRows ){
+        ResponseEntity<Object> rs = null;
+        try {
+            PageableUserDto pageableUserDto = new PageableUserDto();
+            if(0 >= actualPage && 1>= quantityRows){
+                pageableUserDto.setActualPage(actualPage);
+                pageableUserDto.setQuantityRows(quantityRows);
+            }else{
+                pageableUserDto.setActualPage(0);
+                pageableUserDto.setQuantityRows(10);
+            }
+
             rs = new ResponseEntity<Object>( userService.findAll(pageableUserDto), HttpStatus.OK);
         }catch (GenericException genericException){
             logger.error(genericException.getMessage(),genericException);

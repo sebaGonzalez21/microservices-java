@@ -1,4 +1,5 @@
 package com.test.generic.impl;
+import com.test.generic.dto.PageableUserListDto;
 import com.test.generic.dto.UserDto;
 import com.test.generic.dto.req.PageableUserDto;
 import com.test.generic.exception.GenericException;
@@ -90,6 +91,49 @@ public class UserImp implements UserService {
             logger.error(ex.getMessage(),ex);
         }
         return listUser;
+    }
+
+    @Override
+    public PageableUserListDto findAllO(PageableUserDto pageableUserDto) throws GenericException {
+        PageableUserListDto pageableUserListDto = new PageableUserListDto();
+        Page<User> listUser = null;
+        UserDto userDto = null;
+        try {
+            Pageable firstPageWithTwoElements = PageRequest.of(pageableUserDto.getActualPage(), pageableUserDto.getQuantityRows());
+            listUser =
+                    userRepository.findAll(firstPageWithTwoElements);
+
+            if(listUser.getNumberOfElements()>0){
+                for (User userObj: listUser){
+                    userDto = new UserDto();
+                    userDto.setIdDto(userObj.getId());
+                    userDto.setFirstNameDto(userObj.getFirstName());
+                    userDto.setLastNameDto(userObj.getLastName());
+                    userDto.setSecondLastNameDto(userObj.getSecondLastName());
+                    userDto.setEmailDto(userObj.getEmail());
+                    userDto.setPhoneNumberDto(userObj.getPhoneNumber());
+                    userDto.setPasswordDto(userObj.getPassword());
+                    userDto.setCreationDateDto(userObj.getCreationDate());
+                    userDto.setUpdateDatesDto(userObj.getUpdateDates());
+                    userDto.setActiveDto(userObj.getActive());
+                    userDto.setProfileDto(userObj.getProfile());
+                    pageableUserListDto.getUserDtoList().add(userDto);
+                }
+
+                pageableUserListDto.setCurrentPage(listUser.getPageable().getPageNumber());
+                pageableUserListDto.setItemPerPage(listUser.getNumberOfElements());
+                pageableUserListDto.setTotalPages(listUser.getTotalPages());
+                pageableUserListDto.setQuantityRecords(listUser.getNumberOfElements());
+
+            }
+
+
+
+        }catch (Exception ex) {
+            logger.error(ex.getMessage(),ex);
+        }
+
+        return pageableUserListDto;
     }
 
     public User transformUserDtoToUser(UserDto userDto)throws GenericException{
