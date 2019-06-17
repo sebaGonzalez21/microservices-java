@@ -35,6 +35,7 @@ public class Constant {
     public static final String URL = "URL :";
 
     public static final String ERROR_SAVE_USER = "ERROR IN THE SYSTEM WHEN SAVE THE USER";
+    public static final String ERROR_SAVE_FILE = "ERROR IN THE SYSTEM WHEN SAVE THE FILE";
     public static final String ERROR_LIST_USER = "ERROR IN THE SYSTEM WHEN LIST ALL THE USERS";
     public static final String ERROR_GET_USER = "ERROR IN THE SYSTEM WHEN GET THE USER";
     public static final String ERROR_GET_PROFILE = "ERROR IN THE SYSTEM WHEN GET THE PROFILE";

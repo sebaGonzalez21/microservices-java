@@ -1,5 +1,6 @@
 package com.testapi.generic.imp;
 
+import com.testapi.generic.dto.FileDto;
 import com.testapi.generic.dto.UserDto;
 import com.testapi.generic.dto.req.PageableUserDto;
 import com.testapi.generic.dto.req.PageableUserListDto;
@@ -16,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 /**
  * Sebastian Gonzalez
@@ -126,5 +130,26 @@ public class UserImp implements UserService {
         }
 
         return userDtoLocalList;
+    }
+
+    @Override
+    public FileDto saveFile(MultipartFile file) throws GenericException{
+        FileDto fileDto = new FileDto();
+        try {
+
+            File fileMetadata = new File;
+            fileMetadata.setName("photo.jpg");
+            java.io.File filePath = new java.io.File("files/photo.jpg");
+            FileContent mediaContent = new FileContent("image/jpeg", filePath);
+            File file = driveService.files().create(fileMetadata, mediaContent)
+                    .setFields("id")
+                    .execute();
+            System.out.println("File ID: " + file.getId());
+
+        }catch (Exception ex){
+            throw new GenericException(Constant.ERROR_SAVE_FILE,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return fileDto;
     }
 }
