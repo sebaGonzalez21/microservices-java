@@ -3,6 +3,7 @@ package com.test.generic.repository;
 import com.test.generic.exception.GenericException;
 import com.test.generic.model.User;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Optional;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
  * Sebastian Gonzalez
  */
 
-public interface UserRepository extends CrudRepository<User,Long> {
+public interface UserRepository extends PagingAndSortingRepository<User,Long> {
 
     /**
      *
@@ -20,4 +21,5 @@ public interface UserRepository extends CrudRepository<User,Long> {
      * @throws GenericException
      */
     Optional<User> findByEmailInAndPassword(String email,String password)throws GenericException;
+
 }

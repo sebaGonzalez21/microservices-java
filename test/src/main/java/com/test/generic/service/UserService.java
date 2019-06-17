@@ -1,6 +1,9 @@
 package com.test.generic.service;
 import com.test.generic.dto.UserDto;
+import com.test.generic.dto.req.PageableUserDto;
 import com.test.generic.exception.GenericException;
+import com.test.generic.model.User;
+import org.springframework.data.domain.Page;
 
 /**
  * Sebastian Gonzalez
@@ -20,5 +23,7 @@ public interface UserService {
      * @throws GenericException
      */
     UserDto addUser(UserDto userDto) throws GenericException;
+
+    Page<User> findAll(PageableUserDto pageableUserDto) throws GenericException;
 
 }

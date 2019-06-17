@@ -1,5 +1,6 @@
 package com.test.generic.impl;
 import com.test.generic.dto.UserDto;
+import com.test.generic.dto.req.PageableUserDto;
 import com.test.generic.exception.GenericException;
 import com.test.generic.model.User;
 import com.test.generic.repository.UserRepository;
@@ -7,10 +8,14 @@ import com.test.generic.service.UserService;
 import com.test.generic.util.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -71,6 +76,20 @@ public class UserImp implements UserService {
             throw new GenericException(Constant.ERROR_GET_USER,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Override
+    public Page<User> findAll(PageableUserDto pageableUserDto) throws GenericException {
+          Page<User> listUser = null;
+        try {
+            Pageable firstPageWithTwoElements = PageRequest.of(pageableUserDto.getActualPage(), pageableUserDto.getQuantityRows());
+            listUser =
+                    userRepository.findAll(firstPageWithTwoElements);
+
+        }catch (Exception ex) {
+            logger.error(ex.getMessage(),ex);
+        }
+        return listUser;
     }
 
     public User transformUserDtoToUser(UserDto userDto)throws GenericException{

@@ -1,6 +1,7 @@
 package com.test.generic.controller;
 
 import com.test.generic.dto.UserDto;
+import com.test.generic.dto.req.PageableUserDto;
 import com.test.generic.dto.req.UserReqDto;
 import com.test.generic.exception.GenericException;
 import com.test.generic.service.UserService;
@@ -33,6 +34,23 @@ public class UserController {
         ResponseEntity<Object> rs = null;
         try {
             rs = new ResponseEntity<Object>( userService.addUser(userDto), HttpStatus.OK);
+        }catch (GenericException genericException){
+            logger.error(genericException.getMessage(),genericException);
+            rs = new ResponseEntity<>( genericException.getMessage(), genericException.getHttpStatus());
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
+            rs = new ResponseEntity<>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return rs;
+    }
+
+    @ApiOperation(value = "lista usuarios creados paginados",
+            notes="lista usuarios creados paginados")
+    @RequestMapping(method = RequestMethod.POST,value = "/pageable")
+    public ResponseEntity<Object> findAll(@RequestBody PageableUserDto pageableUserDto){
+        ResponseEntity<Object> rs = null;
+        try {
+            rs = new ResponseEntity<Object>( userService.findAll(pageableUserDto), HttpStatus.OK);
         }catch (GenericException genericException){
             logger.error(genericException.getMessage(),genericException);
             rs = new ResponseEntity<>( genericException.getMessage(), genericException.getHttpStatus());
