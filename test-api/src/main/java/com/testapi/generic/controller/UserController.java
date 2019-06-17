@@ -1,5 +1,6 @@
 package com.testapi.generic.controller;
 import com.testapi.generic.dto.ProfileDto;
+import com.testapi.generic.dto.req.PageableUserDto;
 import com.testapi.generic.service.ProfileService;
 import com.testapi.generic.util.Constant;
 import io.swagger.annotations.ApiOperation;
@@ -33,10 +34,10 @@ public class UserController {
     @Autowired
     private ProfileService profileService;
 
-    @ApiOperation(value = "Registra un usuario api",
-            notes="Agrega usuario api")
+    @ApiOperation(value = "Buusca un usuario y agrega",
+            notes="Buusca un usuario y agrega")
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Object> addUser(@RequestBody UserDto userDto){
+    public ResponseEntity<Object> findById(@RequestBody UserDto userDto){
         ResponseEntity<Object> rs = null;
         ProfileDto profileDto = null;
         try {
@@ -57,19 +58,14 @@ public class UserController {
         return rs;
     }
 
-    @ApiOperation(value = "Lista de usuarios ",
-            notes="Lista de usuarios ")
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Object> findAll(@RequestBody UserDto userDto){
+    @ApiOperation(value = "Lista de Usuarios",
+            notes="Lista de Usuarios")
+    @RequestMapping(method = RequestMethod.POST, value = "/pageable")
+    public ResponseEntity<Object> findAllO(@RequestBody PageableUserDto pageableUserDto){
         ResponseEntity<Object> rs = null;
         ProfileDto profileDto = null;
         try {
-            profileDto = profileService.findById(userDto.getProfileDto());
-            if(null != profileDto){
-                rs = new ResponseEntity<Object>( userService.addUser(userDto), HttpStatus.OK);
-            }else{
-                rs = new ResponseEntity<Object>(Constant.ERROR_GET_PROFILE,HttpStatus.BAD_REQUEST);
-            }
+            rs = new ResponseEntity<Object>( userService.findAllO(pageableUserDto), HttpStatus.OK);
 
         }catch (GenericException genericException){
             logger.error(genericException.getMessage(),genericException);
@@ -80,11 +76,12 @@ public class UserController {
         }
         return rs;
     }
+
 
     @ApiOperation(value = "Inicia Sesion api",
             notes="Inicio de Sesion de Usuario api")
     @RequestMapping(method = RequestMethod.POST,value = "/login")
-    public ResponseEntity<Object> addUser(@RequestBody UserReqDto userReqDto){
+    public ResponseEntity<Object> findByEmailInAndPassword(@RequestBody UserReqDto userReqDto){
         ResponseEntity<Object> rs = null;
         try {
             rs = new ResponseEntity<Object>( userService.findByEmailInAndPassword(userReqDto), HttpStatus.OK);

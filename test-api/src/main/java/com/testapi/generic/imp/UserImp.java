@@ -1,6 +1,8 @@
 package com.testapi.generic.imp;
 
 import com.testapi.generic.dto.UserDto;
+import com.testapi.generic.dto.req.PageableUserDto;
+import com.testapi.generic.dto.req.PageableUserListDto;
 import com.testapi.generic.dto.req.UserReqDto;
 import com.testapi.generic.exception.GenericException;
 import com.testapi.generic.util.Constant;
@@ -91,5 +93,38 @@ public class UserImp implements UserService {
         }
 
         return userDtoLocal;
+    }
+
+    @Override
+    public PageableUserListDto findAllO(PageableUserDto pageableUserDto) throws GenericException {
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<PageableUserListDto> responseEntity = null;
+        PageableUserListDto userDtoLocalList = new PageableUserListDto();
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<PageableUserDto> requestEntity = new HttpEntity<>(pageableUserDto,headers);
+        try {
+
+
+            logger.info(Constant.URL +dalServiceUrlTest + Constant.URLTESTDAL_LIST);
+
+            responseEntity = restTemplate.exchange(dalServiceUrlTest + Constant.URLTESTDAL_LIST,
+                    HttpMethod.POST, requestEntity, PageableUserListDto.class);
+
+            if (null == responseEntity) {
+                logger.error(Constant.ERROR_CLIENT_LIST);
+                throw new GenericException(Constant.ERROR_LIST_USER,
+                        HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                userDtoLocalList = responseEntity.getBody();
+            }
+
+
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
+            throw new GenericException(Constant.ERROR_SAVE_USER,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return userDtoLocalList;
     }
 }

@@ -63,7 +63,7 @@ public class UserController {
 
     @ApiOperation(value = "lista usuarios creados paginados",
             notes="lista usuarios creados paginados")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value="/pageable")
     public ResponseEntity<Object> findAll(@RequestParam int actualPage,@RequestParam int quantityRows ){
         ResponseEntity<Object> rs = null;
         try {
