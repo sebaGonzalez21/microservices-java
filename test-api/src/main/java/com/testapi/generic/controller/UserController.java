@@ -57,6 +57,30 @@ public class UserController {
         return rs;
     }
 
+    @ApiOperation(value = "Lista de usuarios ",
+            notes="Lista de usuarios ")
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Object> findAll(@RequestBody UserDto userDto){
+        ResponseEntity<Object> rs = null;
+        ProfileDto profileDto = null;
+        try {
+            profileDto = profileService.findById(userDto.getProfileDto());
+            if(null != profileDto){
+                rs = new ResponseEntity<Object>( userService.addUser(userDto), HttpStatus.OK);
+            }else{
+                rs = new ResponseEntity<Object>(Constant.ERROR_GET_PROFILE,HttpStatus.BAD_REQUEST);
+            }
+
+        }catch (GenericException genericException){
+            logger.error(genericException.getMessage(),genericException);
+            rs = new ResponseEntity<>( genericException.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
+            rs = new ResponseEntity<>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return rs;
+    }
+
     @ApiOperation(value = "Inicia Sesion api",
             notes="Inicio de Sesion de Usuario api")
     @RequestMapping(method = RequestMethod.POST,value = "/login")
