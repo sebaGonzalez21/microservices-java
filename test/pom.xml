@@ -129,7 +129,7 @@
 				<version>0.9.9</version>
 				<configuration>
 					<to>
-						<image>microservice/ms-dal-test</image>
+						<image>gcr.io/gcp-test/ms-dal-test</image>
 					</to>
 				</configuration>
 			</plugin>
