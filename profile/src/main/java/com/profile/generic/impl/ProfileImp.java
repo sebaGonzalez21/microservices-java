@@ -29,7 +29,7 @@ public class ProfileImp implements ProfileService {
     @Override
     public ProfileDto findById(long id) throws GenericException {
         try {
-            return getProfile(profileRepository.findById(id));
+            return transformProfileOptionalToDto(profileRepository.findById(id));
         }catch (Exception ex){
             logger.error(ex.getMessage(),ex);
             throw new GenericException(Constant.ERROR_GET_PROFILE,
@@ -37,20 +37,59 @@ public class ProfileImp implements ProfileService {
         }
     }
 
+    @Override
+    public ProfileDto findByName(String name) throws GenericException {
+        ProfileDto profileDto = null;
+        try {
+            profileDto = transformProfileOptionalToDto(profileRepository.findByName(name));
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
+        }
+        return profileDto;
+    }
 
-    private ProfileDto getProfile(Optional<Profile> profile){
-        ProfileDto profileDto = new ProfileDto();
+    
+
+    public ProfileDto transformProfileOptionalToDto(Optional<Profile> profile){
+        ProfileDto profileDto = null;
         try{
             if(profile.isPresent()){
+                profileDto = new ProfileDto();
                 profileDto.setIdDto(profile.get().getId());
                 profileDto.setNameDto(profile.get().getName());
                 profileDto.setFlagActivateDto(profile.get().getFlagActivate());
-            }else{
-                profileDto = null;
             }
         }catch (Exception ex){
             logger.error(ex.getMessage(),ex);
         }
         return profileDto;
     }
+
+    private Profile transformDtoIntoProfile(ProfileDto profileDto){
+        Profile profile = null;
+        try {
+            profileDto = new ProfileDto();
+            profile.setFlagActivate(profileDto.getFlagActivateDto());
+            profile.setName(profileDto.getNameDto());
+            profile.setId(profileDto.getIdDto());
+
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
+        }
+        return profile;
+    }
+
+    private ProfileDto transformProfileIntoDto(Profile profile){
+        ProfileDto profileDto = null;
+        try {
+            profileDto = new ProfileDto();
+            profileDto.setFlagActivateDto(profile.getFlagActivate());
+            profileDto.setNameDto(profile.getName());
+            profileDto.setIdDto(profile.getId());
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
+        }
+        return profileDto;
+    }
+
 }

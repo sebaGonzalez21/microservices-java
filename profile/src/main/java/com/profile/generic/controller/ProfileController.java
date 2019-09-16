@@ -25,10 +25,27 @@ public class ProfileController {
     @ApiOperation(value = "Obtiene un perfil",
             notes="Perfil de usuario")
     @RequestMapping(method = RequestMethod.GET,value="/{id}")
-    public ResponseEntity<Object> getIdProfile(@PathVariable Long id){
+    public ResponseEntity<Object> findById(@PathVariable Long id){
         ResponseEntity<Object> rs = null;
         try {
             rs = new ResponseEntity<Object>( profileService.findById(id), HttpStatus.OK);
+        }catch (GenericException genericException){
+            logger.error(genericException.getMessage(),genericException);
+            rs = new ResponseEntity<>( genericException.getMessage(), genericException.getHttpStatus());
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
+            rs = new ResponseEntity<>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return rs;
+    }
+
+    @ApiOperation(value = "Obtiene un perfil mediante el nombre de usuario",
+            notes="Perfil mediante el nombre de usuario")
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Object> findByName(@RequestParam String name){
+        ResponseEntity<Object> rs = null;
+        try {
+            rs = new ResponseEntity<Object>( profileService.findByName(name), HttpStatus.OK);
         }catch (GenericException genericException){
             logger.error(genericException.getMessage(),genericException);
             rs = new ResponseEntity<>( genericException.getMessage(), genericException.getHttpStatus());

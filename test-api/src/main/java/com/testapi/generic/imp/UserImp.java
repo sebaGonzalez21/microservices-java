@@ -136,7 +136,7 @@ public class UserImp implements UserService {
     public FileDto saveFile(MultipartFile file) throws GenericException{
         FileDto fileDto = new FileDto();
         try {
-
+            /*
             File fileMetadata = new File;
             fileMetadata.setName("photo.jpg");
             java.io.File filePath = new java.io.File("files/photo.jpg");
@@ -144,7 +144,7 @@ public class UserImp implements UserService {
             File file = driveService.files().create(fileMetadata, mediaContent)
                     .setFields("id")
                     .execute();
-            System.out.println("File ID: " + file.getId());
+            System.out.println("File ID: " + file.getId());*/
 
         }catch (Exception ex){
             throw new GenericException(Constant.ERROR_SAVE_FILE,

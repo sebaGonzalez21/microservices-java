@@ -1,7 +1,7 @@
 ## Rest Template
  + https://www.baeldung.com/rest-template
 
-## Compilar a Contenedor y Realizar P
+## Compilar a Contenedor y Realizar
 + mvn compile jib:dockerBuild (Desde Windows PowerShell)
 + https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin#build-to-docker-daemon
 + gcloud auth configure-docker
