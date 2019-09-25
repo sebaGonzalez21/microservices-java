@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
+@CrossOrigin(value = "*")
 @RequestMapping("/dal/profile")
 public class ProfileController {
 

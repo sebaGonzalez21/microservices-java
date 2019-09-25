@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 
 @RestController
+@CrossOrigin(value = "*")
 @RequestMapping("/api/user")
 public class UserController {
 

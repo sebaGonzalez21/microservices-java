@@ -39,16 +39,16 @@ public class ProfileImp implements ProfileService {
 
     @Override
     public ProfileDto findByName(String name) throws GenericException {
-        ProfileDto profileDto = null;
         try {
-            profileDto = transformProfileOptionalToDto(profileRepository.findByName(name));
+            return transformProfileOptionalToDto(profileRepository.findByName(name));
         }catch (Exception ex){
             logger.error(ex.getMessage(),ex);
+            throw new GenericException(Constant.ERROR_GET_NAME,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return profileDto;
     }
 
-    
+
 
     public ProfileDto transformProfileOptionalToDto(Optional<Profile> profile){
         ProfileDto profileDto = null;

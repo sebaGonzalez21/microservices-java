@@ -18,6 +18,7 @@ public class Constant {
     public static final String EMPTY_STRING = "";
 
     public static final String ERROR_GET_PROFILE = "ERROR IN THE SYSTEM WHEN GET THE PROFILE";
+    public static final String ERROR_GET_NAME = "ERROR IN THE SYSTEM WHEN GET THE NAME";
     public static final String ERROR_TRANSFORM_DTO_USER = "ERROR TRANSFORM FROM DTO TO MODEL";
     public static final String ERROR_TRANSFORM_MODEL_USER = "ERROR TRANSFORM FROM MODEL TO DTO";
 }
