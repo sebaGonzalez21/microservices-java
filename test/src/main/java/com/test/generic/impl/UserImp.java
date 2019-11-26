@@ -80,12 +80,11 @@ public class UserImp implements UserService {
     }
 
     @Override
-    public Page<User> findAll(PageableUserDto pageableUserDto) throws GenericException {
+    public Page<User> findAll(PageableUserDto pageableUserDto) {
           Page<User> listUser = null;
         try {
             Pageable firstPageWithTwoElements = PageRequest.of(pageableUserDto.getActualPage(), pageableUserDto.getQuantityRows());
-            listUser =
-                    userRepository.findAll(firstPageWithTwoElements);
+            listUser =userRepository.findAll(firstPageWithTwoElements);
 
         }catch (Exception ex) {
             logger.error(ex.getMessage(),ex);
@@ -94,14 +93,13 @@ public class UserImp implements UserService {
     }
 
     @Override
-    public PageableUserListDto findAllO(PageableUserDto pageableUserDto) throws GenericException {
+    public PageableUserListDto findAllO(PageableUserDto pageableUserDto){
         PageableUserListDto pageableUserListDto = new PageableUserListDto();
         Page<User> listUser = null;
         UserDto userDto = null;
         try {
             Pageable firstPageWithTwoElements = PageRequest.of(pageableUserDto.getActualPage(), pageableUserDto.getQuantityRows());
-            listUser =
-                    userRepository.findAll(firstPageWithTwoElements);
+            listUser = userRepository.findAll(firstPageWithTwoElements);
 
             if(listUser.getNumberOfElements()>0){
                 for (User userObj: listUser){

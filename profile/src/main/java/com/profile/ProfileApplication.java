@@ -21,6 +21,7 @@ public class ProfileApplication {
 
 	public static void main(String[] args) {
 		logger.info("Aplicacion Escuchando Peticiones MS-DAL-PROFILE.....");
+
 		SpringApplication.run(ProfileApplication.class, args);
 	}
 

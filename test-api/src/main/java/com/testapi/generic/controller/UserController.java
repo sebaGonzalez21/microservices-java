@@ -54,7 +54,7 @@ public class UserController {
 
         }catch (GenericException genericException){
             logger.error(genericException.getMessage(),genericException);
-            rs = new ResponseEntity<>( genericException.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            rs = new ResponseEntity<>( genericException.getMessage(),genericException.getHttpStatus());
         }catch (Exception ex){
             logger.error(ex.getMessage(),ex);
             rs = new ResponseEntity<>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

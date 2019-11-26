@@ -12,7 +12,4 @@ public class FileDto {
         this.name = name;
     }
 
-
-
-
 }
